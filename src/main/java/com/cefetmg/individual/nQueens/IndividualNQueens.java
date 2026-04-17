@@ -5,25 +5,13 @@ import java.util.List;
 import com.cefetmg.individual.interfaces.Individual;
 import com.cefetmg.individual.utils.GeneOperator;
 
-public class IndividualNQueens implements Individual {
+public class IndividualNQueens extends Individual {
+
+    private Integer evaluation = null;
 
     private double mutationRate = 0.3;
     private int[] genes;
     private int numGenes;
-
-    private final static boolean maximization = false;
-
-    // genes = {2, 2, 0, 1};
-    //     0   1   2   3
-    // -----------------
-    // 0 |   |   | x |   |
-    // -----------------
-    // 1 |   |   |   | x |
-    // -----------------
-    // 2 | x | x |   |   |
-    // -----------------
-    // 3 |   |   |   |   |
-    // -----------------
 
     protected IndividualNQueens(int numGenes) {
         this.numGenes = numGenes;
@@ -58,28 +46,20 @@ public class IndividualNQueens implements Individual {
 
     @Override
     public double getEvaluation() {
-        return GeneOperator.countCollisions(this.genes, numGenes);
+        if (evaluation == null) {
+            evaluation = GeneOperator.countCollisions(this.genes, numGenes);
+        }
+        return evaluation;
     }
 
     @Override
     public boolean isMaximization() {
-        return maximization;
+        return false;
     }
 
     @Override
     public int[] getGenes() {
         return genes;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder genesString = new StringBuilder("{ ");
-        for (int gene : this.genes) {
-            genesString.append(gene).append(" ");
-        }
-        genesString.append("}");
-
-        return "Indivíduo: [ " + genesString.toString() + " ]";
     }
 
 }

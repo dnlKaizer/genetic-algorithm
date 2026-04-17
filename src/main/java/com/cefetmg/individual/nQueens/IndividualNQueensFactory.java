@@ -2,7 +2,7 @@ package com.cefetmg.individual.nQueens;
 
 import com.cefetmg.individual.interfaces.IndividualFactory;
 
-public class IndividualNQueensFactory implements IndividualFactory {
+public class IndividualNQueensFactory extends IndividualFactory {
 
     private int numGenes;
 
