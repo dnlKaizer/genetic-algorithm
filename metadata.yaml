@@ -1,0 +1,15 @@
+project:
+  name: genetic-algorithm
+  language: java
+  build_tool: maven
+
+execution_defaults:
+  num_queens: 4
+  num_individuals: 100
+  num_generations: 10000
+
+individual_n_queens:
+  mutation_rate: 0.3
+
+random:
+  seed: 123456789
