@@ -1,4 +1,4 @@
-package com.cefetmg.individual.interfaces;
+package com.cefetmg.core.interfaces;
 
 import java.util.List;
 

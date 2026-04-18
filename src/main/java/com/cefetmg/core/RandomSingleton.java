@@ -1,9 +1,9 @@
-package com.cefetmg;
+package com.cefetmg.core;
 
 import java.util.Objects;
 import java.util.Random;
 
-import com.cefetmg.metadata.variables.VarsRandom;
+import com.cefetmg.config.variables.VarsRandom;
 
 public class RandomSingleton {
     private static Random instance = new Random();

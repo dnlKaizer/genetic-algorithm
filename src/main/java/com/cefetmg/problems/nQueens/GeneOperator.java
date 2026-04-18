@@ -1,8 +1,8 @@
-package com.cefetmg.individual.utils;
+package com.cefetmg.problems.nQueens;
 
 import java.util.Random;
 
-import com.cefetmg.RandomSingleton;
+import com.cefetmg.core.RandomSingleton;
 
 public class GeneOperator {
 

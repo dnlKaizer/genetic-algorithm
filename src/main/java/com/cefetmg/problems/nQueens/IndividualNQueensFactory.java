@@ -1,8 +1,7 @@
-package com.cefetmg.individual.nQueens;
+package com.cefetmg.problems.nQueens;
 
-import com.cefetmg.individual.interfaces.IndividualFactory;
-import com.cefetmg.individual.utils.GeneOperator;
-import com.cefetmg.metadata.variables.VarsIndividualNQueens;
+import com.cefetmg.config.variables.VarsIndividualNQueens;
+import com.cefetmg.core.interfaces.IndividualFactory;
 
 public class IndividualNQueensFactory extends IndividualFactory<int[]> {
 

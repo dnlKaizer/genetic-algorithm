@@ -1,9 +1,8 @@
-package com.cefetmg.individual.nQueens;
+package com.cefetmg.problems.nQueens;
 
 import java.util.List;
 
-import com.cefetmg.individual.interfaces.Individual;
-import com.cefetmg.individual.utils.GeneOperator;
+import com.cefetmg.core.interfaces.Individual;
 
 public class IndividualNQueens extends Individual<int[]> {
 

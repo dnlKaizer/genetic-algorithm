@@ -1,4 +1,4 @@
-package com.cefetmg.metadata;
+package com.cefetmg.config;
 
 import java.io.IOException;
 import java.nio.file.Files;

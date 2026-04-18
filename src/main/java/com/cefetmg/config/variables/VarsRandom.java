@@ -1,6 +1,6 @@
-package com.cefetmg.metadata.variables;
+package com.cefetmg.config.variables;
 
-import com.cefetmg.metadata.MetadataConfig;
+import com.cefetmg.config.MetadataConfig;
 
 public class VarsRandom {
     private VarsRandom() {}
