@@ -13,9 +13,12 @@ public class IndividualNQueens extends Individual {
     private int[] genes;
     private int numGenes;
 
+    private final int MAX_COLLISIONS;
+
     protected IndividualNQueens(int numGenes) {
         this.numGenes = numGenes;
         this.genes = new int[numGenes];
+        this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
 
         for (int i = 0; i < numGenes; i++) {
             genes[i] = GeneOperator.generateRandomGene(numGenes);
@@ -25,6 +28,7 @@ public class IndividualNQueens extends Individual {
     private IndividualNQueens(int numGenes, int[] genes) {
         this.numGenes = numGenes;
         this.genes = genes;
+        this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class IndividualNQueens extends Individual {
     }
 
     @Override
-    public double getEvaluation() {
+    public double getFitness() {
         if (evaluation == null) {
             evaluation = GeneOperator.countCollisions(this.genes, numGenes);
         }
@@ -53,8 +57,8 @@ public class IndividualNQueens extends Individual {
     }
 
     @Override
-    public boolean isMaximization() {
-        return false;
+    public double getSelectionFitness() {
+        return (MAX_COLLISIONS + 1) - getFitness();
     }
 
     @Override

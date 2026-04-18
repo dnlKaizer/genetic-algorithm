@@ -1,6 +1,7 @@
 package com.cefetmg;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -23,11 +24,11 @@ public class GeneticAlgorithm {
 
             population.clear();
             population.addAll(applyElitism(allIndividuals, numEliteIndividuals));
-            population.addAll(applyBiasedSelection(allIndividuals, numIndividuals - numEliteIndividuals));
+            population.addAll(applyRouletteWheelSelection(allIndividuals, numIndividuals - numEliteIndividuals));
         }
 
         Collections.sort(population);
-        
+
         return population.get(0);
     }
 
@@ -62,25 +63,26 @@ public class GeneticAlgorithm {
         return populationSorted.subList(0, numEliteIndividuals);
     }
 
-    private static List<Individual> applyBiasedSelection(List<Individual> population, int numSelected) {
+    private static List<Individual> applyRouletteWheelSelection(List<Individual> population, int numSelected) {
+        double[] cumulativeScores = new double[population.size()];
+        double sum = 0;
+
+        for (int i = 0; i < population.size(); i++) {
+            sum += population.get(i).getSelectionFitness();
+            cumulativeScores[i] = sum;
+        }
+
         List<Individual> selected = new ArrayList<>(numSelected);
 
-        double totalEvaluation = population.stream()
-            .mapToDouble(individual -> (1 / individual.getEvaluation()))
-            .sum();
-
         for (int i = 0; i < numSelected; i++) {
-            double nextDouble = random.nextDouble() * totalEvaluation;
-            double cumulativeEvaluation = 0;
+            double target = random.nextDouble() * sum;
 
-            for (Individual individual : population) {
-                cumulativeEvaluation += (1 / individual.getEvaluation());
-                if (cumulativeEvaluation > nextDouble) {
-                    selected.add(individual);
-                    break;
-                }
-            }
+            int index = Arrays.binarySearch(cumulativeScores, target);
+            if (index < 0) index = -(index + 1);
+
+            selected.add(population.get(index));
         }
+
         return selected;
     }
 

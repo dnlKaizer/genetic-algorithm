@@ -26,28 +26,21 @@ public class IndividualNQueensTest {
 	void getEvaluationShouldReturnZeroForValidSolution() {
 		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 });
 
-		assertEquals(0, individual.getEvaluation());
+		assertEquals(0, individual.getFitness());
 	}
 
 	@Test
 	void getEvaluationShouldCountCollisionsForInvalidSolution() {
 		IndividualNQueens individual = createIndividual(new int[] { 0, 0, 0, 0 });
 
-		assertEquals(6, individual.getEvaluation());
-	}
-
-	@Test
-	void isMaximizationShouldBeFalse() {
-		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 });
-
-		assertEquals(false, individual.isMaximization());
+		assertEquals(6, individual.getFitness());
 	}
 
 	@Test
 	void toStringShouldExposeGenes() {
 		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 });
 
-		assertEquals("Indivíduo: [ { 1 3 0 2 } ]", individual.toString());
+		assertEquals("Indivíduo: [ { 1 3 0 2 } ], Avaliação: 0.0", individual.toString());
 	}
 
 	@Test

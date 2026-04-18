@@ -7,19 +7,15 @@ public abstract class Individual implements Comparable<Individual> {
 
     public abstract Individual mutate();
 
-    public abstract double getEvaluation();
+    public abstract double getFitness();
 
-    public abstract boolean isMaximization();
+    public abstract double getSelectionFitness();
 
     public abstract int[] getGenes();
 
     @Override
     public int compareTo(Individual other) {
-        if (this.isMaximization()) {
-            return Double.compare(other.getEvaluation(), this.getEvaluation());
-        } else {
-            return Double.compare(this.getEvaluation(), other.getEvaluation());
-        }
+        return Double.compare(this.getFitness(), other.getFitness());
     }
 
     @Override
@@ -30,6 +26,6 @@ public abstract class Individual implements Comparable<Individual> {
         }
         genesString.append("}");
 
-        return "Indivíduo: [ " + genesString.toString() + " ], Avaliação: " + getEvaluation();
+        return "Indivíduo: [ " + genesString.toString() + " ], Avaliação: " + getFitness();
     }
 }
