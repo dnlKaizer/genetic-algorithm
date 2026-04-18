@@ -1,39 +1,20 @@
-package com.cefetmg.view;
+package com.cefetmg.problems.nQueens.view;
 
-import com.cefetmg.config.variables.VarsExecutionDefaults;
-import com.cefetmg.core.GeneticAlgorithm;
 import com.cefetmg.core.interfaces.Individual;
-import com.cefetmg.problems.nQueens.IndividualNQueensFactory;
+import com.cefetmg.problems.nQueens.model.records.NQueensStatistics;
+import com.cefetmg.problems.nQueens.model.records.NQueensVariables;
 
 public class NQueensView {
 
     private NQueensView() {}
 
-    private record NQueensVariables(
-        int numQueens,
-        int numIndividuals,
-        int numEliteIndividuals,
-        int maxGenerations
-    ) {}
-
-    public static String execute() {
+    public static String display(NQueensStatistics statistics) {
         String br = System.lineSeparator();
         StringBuilder sb = new StringBuilder(br);
 
-        NQueensVariables vars = new NQueensVariables(
-            VarsExecutionDefaults.getNumQueens(),
-            VarsExecutionDefaults.getNumIndividuals(),
-            VarsExecutionDefaults.getNumEliteIndividuals(),
-            VarsExecutionDefaults.getMaxGenerations()
-        );
-
-        IndividualNQueensFactory factory = new IndividualNQueensFactory(vars.numQueens());
-        GeneticAlgorithm<int[]> algorithm = new GeneticAlgorithm<>();
-        Individual<int[]> individual = algorithm.execute(factory, vars.numIndividuals(), vars.numEliteIndividuals(), vars.maxGenerations());
-
         addHeader(sb, br);
-        addConfig(sb, br, vars);
-        addStatistics(sb, br, individual, algorithm);
+        addConfig(sb, br, statistics.variables());
+        addStatistics(sb, br, statistics.bestIndividual(), statistics.generationCount());
 
         return sb.toString();
     }
@@ -52,10 +33,10 @@ public class NQueensView {
         sb.append("\tMáximo de Gerações: ").append(vars.maxGenerations()).append(br);
     }
 
-    private static void addStatistics(StringBuilder sb, String br, Individual<int[]> individual, GeneticAlgorithm<int[]> algorithm) {
+    private static void addStatistics(StringBuilder sb, String br, Individual<int[]> individual, int generationCount) {
         sb.append(br);
         sb.append("Melhor caso: ").append(individual).append(br);
-        sb.append("Contagem de Gerações: ").append(algorithm.getGenerationCount()).append(br);
+        sb.append("Contagem de Gerações: ").append(generationCount).append(br);
         addLine(sb, br);
     }
 

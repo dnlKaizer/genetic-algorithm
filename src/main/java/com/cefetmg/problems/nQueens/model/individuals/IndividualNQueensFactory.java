@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens;
+package com.cefetmg.problems.nQueens.model.individuals;
 
 import com.cefetmg.config.variables.VarsIndividualNQueens;
 import com.cefetmg.core.interfaces.IndividualFactory;

@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens;
+package com.cefetmg.problems.nQueens.model.individuals;
 
 import java.util.List;
 
