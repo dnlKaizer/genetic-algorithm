@@ -11,6 +11,8 @@ public abstract class Individual<T> implements Comparable<Individual<T>> {
 
     public abstract double getSelectionFitness();
 
+    public abstract boolean isOptimal();
+
     public abstract T getGenes();
 
     @Override

@@ -98,6 +98,11 @@ class GeneticAlgorithmTest {
         }
 
         @Override
+        public boolean isOptimal() {
+            return value == 0;
+        }
+
+        @Override
         public Integer getGenes() {
             return value;
         }

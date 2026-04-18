@@ -9,7 +9,7 @@ public abstract class IndividualFactory<T> {
 
     public List<Individual<T>> getInstances(int num) {
         return IntStream.range(0, num)
-            .mapToObj(i -> ((Individual<T>) getInstance()))
+            .mapToObj(i -> (getInstance()))
             .collect(Collectors.toList());
     }
 }

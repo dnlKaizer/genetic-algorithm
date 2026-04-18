@@ -17,7 +17,7 @@ public class VarsExecutionDefaults {
         return getNumIndividuals() / 5;
     }
 
-    public static int getNumGenerations() {
-        return MetadataConfig.getInt("execution_defaults.num_generations", 10000);
+    public static int getMaxGenerations() {
+        return MetadataConfig.getInt("execution_defaults.max_generations", 10000);
     }
 }

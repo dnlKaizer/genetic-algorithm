@@ -68,19 +68,23 @@ public class IndividualNQueens extends Individual<int[]> {
     }
 
     @Override
+    public boolean isOptimal() {
+        return getFitness() == 0;
+    }
+
+    @Override
     public int[] getGenes() {
         return genes;
     }
 
     @Override
     public String toString() {
-        StringBuilder genesString = new StringBuilder("{ ");
+        StringBuilder sb = new StringBuilder("Indivíduo: { ");
         for (int gene : genes) {
-            genesString.append(gene).append(" ");
+            sb.append(gene).append(" ");
         }
-        genesString.append("}");
-
-        return "Indivíduo: [ " + genesString.toString() + " ], Avaliação: " + getFitness();
+        sb.append("}, Avaliação: ").append(getFitness());
+        return sb.toString();
     }
 
 }

@@ -13,7 +13,7 @@ public class NQueensView {
         int numQueens,
         int numIndividuals,
         int numEliteIndividuals,
-        int numGenerations
+        int maxGenerations
     ) {}
 
     public static String execute() {
@@ -24,12 +24,12 @@ public class NQueensView {
             VarsExecutionDefaults.getNumQueens(),
             VarsExecutionDefaults.getNumIndividuals(),
             VarsExecutionDefaults.getNumEliteIndividuals(),
-            VarsExecutionDefaults.getNumGenerations()
+            VarsExecutionDefaults.getMaxGenerations()
         );
 
         IndividualNQueensFactory factory = new IndividualNQueensFactory(vars.numQueens());
         GeneticAlgorithm<int[]> algorithm = new GeneticAlgorithm<>();
-        Individual<int[]> individual = algorithm.execute(factory, vars.numIndividuals(), vars.numEliteIndividuals(), vars.numGenerations());
+        Individual<int[]> individual = algorithm.execute(factory, vars.numIndividuals(), vars.numEliteIndividuals(), vars.maxGenerations());
 
         addHeader(sb, br);
         addConfig(sb, br, vars);
@@ -46,15 +46,16 @@ public class NQueensView {
 
     private static void addConfig(StringBuilder sb, String br, NQueensVariables vars) {
         sb.append("Configurações de Execução:").append(br);
-        sb.append("\tNúmero de Rainhas: " + vars.numQueens()).append(br);
-        sb.append("\tNúmero de Indivíduos: " + vars.numIndividuals()).append(br);
-        sb.append("\tNúmero de Indivíduos Elites: " + vars.numEliteIndividuals()).append(br);
-        sb.append("\tNúmero de Gerações: " + vars.numGenerations()).append(br);
+        sb.append("\tNúmero de Rainhas: ").append(vars.numQueens()).append(br);
+        sb.append("\tNúmero de Indivíduos: ").append(vars.numIndividuals()).append(br);
+        sb.append("\tNúmero de Elites: ").append(vars.numEliteIndividuals()).append(br);
+        sb.append("\tMáximo de Gerações: ").append(vars.maxGenerations()).append(br);
     }
 
     private static void addStatistics(StringBuilder sb, String br, Individual<int[]> individual, GeneticAlgorithm<int[]> algorithm) {
-        sb.append("\nMelhor caso -> " + individual).append(br);
-        // sb.append("\nNúmero de Gerações: " + algorithm.getNumGenerations()).append(br);
+        sb.append(br);
+        sb.append("Melhor caso: ").append(individual).append(br);
+        sb.append("Contagem de Gerações: ").append(algorithm.getGenerationCount()).append(br);
         addLine(sb, br);
     }
 

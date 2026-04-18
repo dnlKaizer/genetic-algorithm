@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import com.cefetmg.core.interfaces.Individual;
@@ -13,18 +14,32 @@ public class GeneticAlgorithm<T> {
 
     private final Random random;
 
+    private int generationCount = 0;
+
     public GeneticAlgorithm() {
         random = RandomSingleton.getInstance();
     }
 
-    public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int numGenerations) {
-        List<Individual<T>> population = factory.getInstances(numIndividuals);
+    public int getGenerationCount() {
+        return generationCount;
+    }
 
-        for (int i = 0; i < numGenerations; i++) {
+    public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int maxGenerations) {
+        List<Individual<T>> population = factory.getInstances(numIndividuals);
+        generationCount = 0;
+
+        for (int i = 0; i < maxGenerations; i++) {
+            generationCount++;
             List<Individual<T>> allIndividuals = new ArrayList<>(numIndividuals * 3);
             allIndividuals.addAll(population);
             allIndividuals.addAll(applyMutation(population));
             allIndividuals.addAll(applyRecombination(population));
+
+            Optional<Individual<T>> optimalIndividual = allIndividuals.stream().filter(Individual::isOptimal).findFirst();
+
+            if (optimalIndividual.isPresent()) {
+                return optimalIndividual.get();
+            }
 
             population.clear();
             population.addAll(applyElitism(allIndividuals, numEliteIndividuals));
@@ -83,6 +98,7 @@ public class GeneticAlgorithm<T> {
 
             int index = Arrays.binarySearch(cumulativeScores, target);
             if (index < 0) index = -(index + 1);
+            if (index >= population.size()) index = population.size() - 1;
 
             selected.add(population.get(index));
         }
