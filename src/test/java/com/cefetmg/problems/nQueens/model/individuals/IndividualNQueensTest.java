@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens;
+package com.cefetmg.problems.nQueens.model.individuals;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +40,7 @@ public class IndividualNQueensTest {
 	void toStringShouldExposeGenes() {
 		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 }, 0.3, new GeneOperator());
 
-		assertEquals("Indivíduo: [ { 1 3 0 2 } ], Avaliação: 0.0", individual.toString());
+		assertEquals("Indivíduo: { 1 3 0 2 }, Avaliação: 0.0", individual.toString());
 	}
 
 	@Test
