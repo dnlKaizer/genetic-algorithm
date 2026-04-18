@@ -5,7 +5,7 @@ import java.util.List;
 import com.cefetmg.individual.interfaces.Individual;
 import com.cefetmg.individual.utils.GeneOperator;
 
-public class IndividualNQueens extends Individual {
+public class IndividualNQueens extends Individual<int[]> {
 
     private Integer evaluation = null;
 
@@ -32,7 +32,7 @@ public class IndividualNQueens extends Individual {
     }
 
     @Override
-    public List<Individual> recombine(Individual parent2) {
+    public List<Individual<int[]>> recombine(Individual<int[]> parent2) {
         int[][] childGenes = GeneOperator.crossoverGenes(this.genes, parent2.getGenes(), numGenes);
 
         return List.of(
@@ -42,7 +42,7 @@ public class IndividualNQueens extends Individual {
     }
 
     @Override
-    public Individual mutate() {
+    public Individual<int[]> mutate() {
         int[] mutatedGenes = GeneOperator.mutateGenes(this.genes, numGenes, mutationRate);
 
         return new IndividualNQueens(numGenes, mutatedGenes);
@@ -64,6 +64,17 @@ public class IndividualNQueens extends Individual {
     @Override
     public int[] getGenes() {
         return genes;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder genesString = new StringBuilder("{ ");
+        for (int gene : genes) {
+            genesString.append(gene).append(" ");
+        }
+        genesString.append("}");
+
+        return "Indivíduo: [ " + genesString.toString() + " ], Avaliação: " + getFitness();
     }
 
 }

@@ -48,11 +48,11 @@ public class IndividualNQueensTest {
 		IndividualNQueens parent1 = createIndividual(new int[] { 0, 0, 0, 0 });
 		IndividualNQueens parent2 = createIndividual(new int[] { 1, 1, 1, 1 });
 
-		List<com.cefetmg.individual.interfaces.Individual> children = parent1.recombine(parent2);
+		List<com.cefetmg.individual.interfaces.Individual<int[]>> children = parent1.recombine(parent2);
 
 		assertEquals(2, children.size());
 
-		for (com.cefetmg.individual.interfaces.Individual child : children) {
+		for (com.cefetmg.individual.interfaces.Individual<int[]> child : children) {
 			assertEquals(4, child.getGenes().length);
 			for (int gene : child.getGenes()) {
 				assertTrue(gene == 0 || gene == 1);
@@ -66,7 +66,7 @@ public class IndividualNQueensTest {
 		IndividualNQueens individual = createIndividual(originalGenes);
 
 		int[] beforeMutation = individual.getGenes().clone();
-		com.cefetmg.individual.interfaces.Individual mutant = individual.mutate();
+		com.cefetmg.individual.interfaces.Individual<int[]> mutant = individual.mutate();
 
 		assertNotSame(individual, mutant);
 		assertArrayEquals(beforeMutation, individual.getGenes());

@@ -9,15 +9,15 @@ import java.util.Random;
 import com.cefetmg.individual.interfaces.Individual;
 import com.cefetmg.individual.interfaces.IndividualFactory;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm<T> {
 
     private final static Random random = new Random();
-    
-    public static Individual execute(IndividualFactory factory, int numIndividuals, int numEliteIndividuals, int numGenerations) {
-        List<Individual> population = factory.getInstances(numIndividuals);
+
+    public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int numGenerations) {
+        List<Individual<T>> population = factory.getInstances(numIndividuals);
 
         for (int i = 0; i < numGenerations; i++) {
-            List<Individual> allIndividuals = new ArrayList<>(numIndividuals * 3);
+            List<Individual<T>> allIndividuals = new ArrayList<>(numIndividuals * 3);
             allIndividuals.addAll(population);
             allIndividuals.addAll(applyMutation(population));
             allIndividuals.addAll(applyRecombination(population));
@@ -32,19 +32,19 @@ public class GeneticAlgorithm {
         return population.get(0);
     }
 
-    private static List<Individual> applyMutation(List<Individual> population) {
+    private List<Individual<T>> applyMutation(List<Individual<T>> population) {
         return population.stream()
             .map(Individual::mutate)
             .toList();
     }
 
-    private static List<Individual> applyRecombination(List<Individual> population) {
-        List<Individual> recombined = new ArrayList<>();
-        List<Individual> populationCopy = new ArrayList<>(population);
+    private List<Individual<T>> applyRecombination(List<Individual<T>> population) {
+        List<Individual<T>> recombined = new ArrayList<>();
+        List<Individual<T>> populationCopy = new ArrayList<>(population);
 
         while (populationCopy.size() > 1) {
-            Individual parent1 = populationCopy.remove(random.nextInt(populationCopy.size()));
-            Individual parent2 = populationCopy.remove(random.nextInt(populationCopy.size()));
+            Individual<T> parent1 = populationCopy.remove(random.nextInt(populationCopy.size()));
+            Individual<T> parent2 = populationCopy.remove(random.nextInt(populationCopy.size()));
 
             recombined.addAll(parent1.recombine(parent2));
         }
@@ -56,14 +56,14 @@ public class GeneticAlgorithm {
         return recombined;
     }
 
-    private static List<Individual> applyElitism(List<Individual> population, int numEliteIndividuals) {
-        List<Individual> populationSorted = new ArrayList<>(population);
+    private List<Individual<T>> applyElitism(List<Individual<T>> population, int numEliteIndividuals) {
+        List<Individual<T>> populationSorted = new ArrayList<>(population);
         Collections.sort(populationSorted);
 
         return populationSorted.subList(0, numEliteIndividuals);
     }
 
-    private static List<Individual> applyRouletteWheelSelection(List<Individual> population, int numSelected) {
+    private List<Individual<T>> applyRouletteWheelSelection(List<Individual<T>> population, int numSelected) {
         double[] cumulativeScores = new double[population.size()];
         double sum = 0;
 
@@ -72,7 +72,7 @@ public class GeneticAlgorithm {
             cumulativeScores[i] = sum;
         }
 
-        List<Individual> selected = new ArrayList<>(numSelected);
+        List<Individual<T>> selected = new ArrayList<>(numSelected);
 
         for (int i = 0; i < numSelected; i++) {
             double target = random.nextDouble() * sum;
