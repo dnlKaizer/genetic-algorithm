@@ -1,4 +1,4 @@
-package com.cefetmg.individual.nQueens;
+package com.cefetmg.problems.nQueens;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,8 +9,6 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import com.cefetmg.individual.utils.GeneOperator;
 
 public class IndividualNQueensTest {
 
@@ -50,11 +48,11 @@ public class IndividualNQueensTest {
 		IndividualNQueens parent1 = createIndividual(new int[] { 0, 0, 0, 0 }, 0.3, new GeneOperator());
 		IndividualNQueens parent2 = createIndividual(new int[] { 1, 1, 1, 1 }, 0.3, new GeneOperator());
 
-		List<com.cefetmg.individual.interfaces.Individual<int[]>> children = parent1.recombine(parent2);
+		List<com.cefetmg.core.interfaces.Individual<int[]>> children = parent1.recombine(parent2);
 
 		assertEquals(2, children.size());
 
-		for (com.cefetmg.individual.interfaces.Individual<int[]> child : children) {
+		for (com.cefetmg.core.interfaces.Individual<int[]> child : children) {
 			assertEquals(4, child.getGenes().length);
 			for (int gene : child.getGenes()) {
 				assertTrue(gene == 0 || gene == 1);
@@ -68,7 +66,7 @@ public class IndividualNQueensTest {
 		IndividualNQueens individual = createIndividual(originalGenes, 0.3, new GeneOperator());
 
 		int[] beforeMutation = individual.getGenes().clone();
-		com.cefetmg.individual.interfaces.Individual<int[]> mutant = individual.mutate();
+		com.cefetmg.core.interfaces.Individual<int[]> mutant = individual.mutate();
 
 		assertNotSame(individual, mutant);
 		assertArrayEquals(beforeMutation, individual.getGenes());

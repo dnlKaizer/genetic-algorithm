@@ -1,4 +1,4 @@
-package com.cefetmg.individual.nQueens;
+package com.cefetmg.problems.nQueens;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

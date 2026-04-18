@@ -1,4 +1,4 @@
-package com.cefetmg;
+package com.cefetmg.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.cefetmg.individual.interfaces.Individual;
-import com.cefetmg.individual.interfaces.IndividualFactory;
+import com.cefetmg.core.interfaces.Individual;
+import com.cefetmg.core.interfaces.IndividualFactory;
 
 class GeneticAlgorithmTest {
 

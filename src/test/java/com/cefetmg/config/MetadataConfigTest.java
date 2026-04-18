@@ -1,4 +1,4 @@
-package com.cefetmg.metadata;
+package com.cefetmg.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

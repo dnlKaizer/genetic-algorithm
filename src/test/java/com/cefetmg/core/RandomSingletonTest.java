@@ -1,4 +1,4 @@
-package com.cefetmg;
+package com.cefetmg.core;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
