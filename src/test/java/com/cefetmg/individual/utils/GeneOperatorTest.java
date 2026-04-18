@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Test;
 
 public class GeneOperatorTest {
 
+	private final GeneOperator geneOperator = new GeneOperator();
+
 	@Test
 	void generateRandomGeneShouldStayWithinRange() {
 		int numGenes = 8;
 
 		for (int i = 0; i < 100; i++) {
-			int gene = GeneOperator.generateRandomGene(numGenes);
+			int gene = geneOperator.generateRandomGene(numGenes);
 
 			assertTrue(gene >= 0);
 			assertTrue(gene < numGenes);
@@ -25,7 +27,7 @@ public class GeneOperatorTest {
 		int numGenes = 6;
 
 		for (int i = 0; i < 100; i++) {
-			int point = GeneOperator.generateCrossoverPoint(numGenes);
+			int point = geneOperator.generateCrossoverPoint(numGenes);
 
 			assertTrue(point >= 1);
 			assertTrue(point < numGenes - 1);
@@ -34,14 +36,14 @@ public class GeneOperatorTest {
 
 	@Test
 	void mutateGeneWithZeroRateShouldKeepOriginalGene() {
-		assertEquals(3, GeneOperator.mutateGene(3, 8, 0.0));
+		assertEquals(3, geneOperator.mutateGene(3, 8, 0.0));
 	}
 
 	@Test
 	void mutateGenesWithZeroRateShouldKeepOriginalArray() {
 		int[] genes = { 0, 1, 2, 3 };
 
-		int[] mutatedGenes = GeneOperator.mutateGenes(genes, 4, 0.0);
+		int[] mutatedGenes = geneOperator.mutateGenes(genes, 4, 0.0);
 
 		assertArrayEquals(genes, mutatedGenes);
 	}
@@ -51,7 +53,7 @@ public class GeneOperatorTest {
 		int[] genes = { 0, 1, 2, 3 };
 		int numGenes = 4;
 
-		int[] mutatedGenes = GeneOperator.mutateGenes(genes, numGenes, 1.0);
+		int[] mutatedGenes = geneOperator.mutateGenes(genes, numGenes, 1.0);
 
 		assertEquals(numGenes, mutatedGenes.length);
 		for (int gene : mutatedGenes) {
@@ -65,7 +67,7 @@ public class GeneOperatorTest {
 		int[] parent1Genes = { 0, 0, 0, 0 };
 		int[] parent2Genes = { 1, 1, 1, 1 };
 
-		int[][] children = GeneOperator.crossoverGenes(parent1Genes, parent2Genes, 4);
+		int[][] children = geneOperator.crossoverGenes(parent1Genes, parent2Genes, 4);
 
 		assertEquals(2, children.length);
 		assertEquals(4, children[0].length);
@@ -80,8 +82,8 @@ public class GeneOperatorTest {
 
 	@Test
 	void countCollisionsShouldDetectSameRowAndDiagonalConflicts() {
-		assertEquals(6, GeneOperator.countCollisions(new int[] { 0, 0, 0, 0 }, 4));
-		assertEquals(6, GeneOperator.countCollisions(new int[] { 0, 1, 2, 3 }, 4));
-		assertEquals(0, GeneOperator.countCollisions(new int[] { 1, 3, 0, 2 }, 4));
+		assertEquals(6, geneOperator.countCollisions(new int[] { 0, 0, 0, 0 }, 4));
+		assertEquals(6, geneOperator.countCollisions(new int[] { 0, 1, 2, 3 }, 4));
+		assertEquals(0, geneOperator.countCollisions(new int[] { 1, 3, 0, 2 }, 4));
 	}
 }

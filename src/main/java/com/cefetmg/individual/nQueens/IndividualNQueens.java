@@ -9,49 +9,56 @@ public class IndividualNQueens extends Individual<int[]> {
 
     private Integer evaluation = null;
 
-    private double mutationRate = 0.3;
     private int[] genes;
     private int numGenes;
 
+    private final GeneOperator GENE_OPERATOR;
+    private final double MUTATION_RATE;
     private final int MAX_COLLISIONS;
 
-    protected IndividualNQueens(int numGenes) {
+    protected IndividualNQueens(int numGenes, double mutationRate, GeneOperator geneOperator) {
         this.numGenes = numGenes;
         this.genes = new int[numGenes];
+        
+        this.GENE_OPERATOR = geneOperator;
+        this.MUTATION_RATE = mutationRate;
         this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
 
         for (int i = 0; i < numGenes; i++) {
-            genes[i] = GeneOperator.generateRandomGene(numGenes);
+            genes[i] = geneOperator.generateRandomGene(numGenes);
         }
     }
 
-    private IndividualNQueens(int numGenes, int[] genes) {
+    private IndividualNQueens(int numGenes, int[] genes, double mutationRate, GeneOperator geneOperator) {
         this.numGenes = numGenes;
         this.genes = genes;
+        
         this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
+        this.MUTATION_RATE = mutationRate;
+        this.GENE_OPERATOR = geneOperator;
     }
 
     @Override
     public List<Individual<int[]>> recombine(Individual<int[]> parent2) {
-        int[][] childGenes = GeneOperator.crossoverGenes(this.genes, parent2.getGenes(), numGenes);
+        int[][] childGenes = GENE_OPERATOR.crossoverGenes(this.genes, parent2.getGenes(), numGenes);
 
         return List.of(
-            new IndividualNQueens(numGenes, childGenes[0]),
-            new IndividualNQueens(numGenes, childGenes[1])
+            new IndividualNQueens(numGenes, childGenes[0], MUTATION_RATE, GENE_OPERATOR),
+            new IndividualNQueens(numGenes, childGenes[1], MUTATION_RATE, GENE_OPERATOR)
         );
     }
 
     @Override
     public Individual<int[]> mutate() {
-        int[] mutatedGenes = GeneOperator.mutateGenes(this.genes, numGenes, mutationRate);
+        int[] mutatedGenes = GENE_OPERATOR.mutateGenes(this.genes, numGenes, MUTATION_RATE);
 
-        return new IndividualNQueens(numGenes, mutatedGenes);
+        return new IndividualNQueens(numGenes, mutatedGenes, MUTATION_RATE, GENE_OPERATOR);
     }
 
     @Override
     public double getFitness() {
         if (evaluation == null) {
-            evaluation = GeneOperator.countCollisions(this.genes, numGenes);
+            evaluation = GENE_OPERATOR.countCollisions(this.genes, numGenes);
         }
         return evaluation;
     }

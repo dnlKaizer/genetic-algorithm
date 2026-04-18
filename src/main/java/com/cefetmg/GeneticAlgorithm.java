@@ -11,7 +11,11 @@ import com.cefetmg.individual.interfaces.IndividualFactory;
 
 public class GeneticAlgorithm<T> {
 
-    private final static Random random = new Random();
+    private final Random random;
+
+    public GeneticAlgorithm() {
+        random = RandomSingleton.getInstance();
+    }
 
     public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int numGenerations) {
         List<Individual<T>> population = factory.getInstances(numIndividuals);
