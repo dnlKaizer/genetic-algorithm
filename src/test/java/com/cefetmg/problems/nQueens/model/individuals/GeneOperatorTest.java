@@ -8,35 +8,31 @@ import org.junit.jupiter.api.Test;
 
 public class GeneOperatorTest {
 
-	private final GeneOperator geneOperator = new GeneOperator();
+	private final IntegerGeneOperator geneOperator = new IntegerGeneOperator();
 
 	@Test
 	void generateRandomGeneShouldStayWithinRange() {
-		int numGenes = 8;
+		int numGenes = 20;
 
 		for (int i = 0; i < 100; i++) {
-			int gene = geneOperator.generateRandomGene(numGenes);
+			int[] gene = geneOperator.generateRandomGenes(numGenes);
 
-			assertTrue(gene >= 0);
-			assertTrue(gene < numGenes);
-		}
-	}
-
-	@Test
-	void generateCrossoverPointShouldStayInsideBounds() {
-		int numGenes = 6;
-
-		for (int i = 0; i < 100; i++) {
-			int point = geneOperator.generateCrossoverPoint(numGenes);
-
-			assertTrue(point >= 1);
-			assertTrue(point < numGenes - 1);
+			assertTrue(gene[0] >= 0);
+			assertTrue(gene[0] < numGenes);
 		}
 	}
 
 	@Test
 	void mutateGeneWithZeroRateShouldKeepOriginalGene() {
-		assertEquals(3, geneOperator.mutateGene(3, 8, 0.0));
+		int numGenes = 8;
+		int[] genes = new int[numGenes];
+		for (int i = 0; i < numGenes; i++) {
+			genes[i] = i;
+		}
+		int[] mutatedGenes = geneOperator.mutateGenes(genes, numGenes, 0.0);
+		for (int i = 0; i < numGenes; i++) {
+			assertEquals(genes[i], mutatedGenes[i]);
+		}
 	}
 
 	@Test
@@ -81,9 +77,9 @@ public class GeneOperatorTest {
 	}
 
 	@Test
-	void countCollisionsShouldDetectSameRowAndDiagonalConflicts() {
-		assertEquals(6, geneOperator.countCollisions(new int[] { 0, 0, 0, 0 }, 4));
-		assertEquals(6, geneOperator.countCollisions(new int[] { 0, 1, 2, 3 }, 4));
-		assertEquals(0, geneOperator.countCollisions(new int[] { 1, 3, 0, 2 }, 4));
+	void evaluateShouldDetectSameRowAndDiagonalConflicts() {
+		assertEquals(6, geneOperator.evaluate(new int[] { 0, 0, 0, 0 }, 4));
+		assertEquals(6, geneOperator.evaluate(new int[] { 0, 1, 2, 3 }, 4));
+		assertEquals(0, geneOperator.evaluate(new int[] { 1, 3, 0, 2 }, 4));
 	}
 }

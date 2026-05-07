@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 
 public class IndividualNQueensTest {
 
-	private IndividualNQueens createIndividual(int[] genes, double mutationRate, GeneOperator geneOperator) {
+	private IndividualNQueens createIndividual(int[] genes, double mutationRate, IntegerGeneOperator geneOperator) {
 		try {
-			Constructor<IndividualNQueens> constructor = IndividualNQueens.class.getDeclaredConstructor(int.class, int[].class, double.class, GeneOperator.class);
+			Constructor<IndividualNQueens> constructor = IndividualNQueens.class.getDeclaredConstructor(int.class, int[].class, double.class, IntegerGeneOperator.class);
 			constructor.setAccessible(true);
 			return constructor.newInstance(genes.length, genes.clone(), mutationRate, geneOperator);
 		} catch (ReflectiveOperationException exception) {
@@ -24,29 +24,29 @@ public class IndividualNQueensTest {
 
 	@Test
 	void getEvaluationShouldReturnZeroForValidSolution() {
-		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 }, 0.3, new GeneOperator());
+		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 }, 0.3, new IntegerGeneOperator());
 
 		assertEquals(0, individual.getFitness());
 	}
 
 	@Test
 	void getEvaluationShouldCountCollisionsForInvalidSolution() {
-		IndividualNQueens individual = createIndividual(new int[] { 0, 0, 0, 0 }, 0.3, new GeneOperator());
+		IndividualNQueens individual = createIndividual(new int[] { 0, 0, 0, 0 }, 0.3, new IntegerGeneOperator());
 
 		assertEquals(6, individual.getFitness());
 	}
 
 	@Test
 	void toStringShouldExposeGenes() {
-		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 }, 0.3, new GeneOperator());
+		IndividualNQueens individual = createIndividual(new int[] { 1, 3, 0, 2 }, 0.3, new IntegerGeneOperator());
 
 		assertEquals("Indivíduo: { 1 3 0 2 }, Avaliação: 0.0", individual.toString());
 	}
 
 	@Test
 	void recombineShouldReturnTwoChildrenWithValidGeneValues() {
-		IndividualNQueens parent1 = createIndividual(new int[] { 0, 0, 0, 0 }, 0.3, new GeneOperator());
-		IndividualNQueens parent2 = createIndividual(new int[] { 1, 1, 1, 1 }, 0.3, new GeneOperator());
+		IndividualNQueens parent1 = createIndividual(new int[] { 0, 0, 0, 0 }, 0.3, new IntegerGeneOperator());
+		IndividualNQueens parent2 = createIndividual(new int[] { 1, 1, 1, 1 }, 0.3, new IntegerGeneOperator());
 
 		List<com.cefetmg.core.interfaces.Individual<int[]>> children = parent1.recombine(parent2);
 
@@ -63,7 +63,7 @@ public class IndividualNQueensTest {
 	@Test
 	void mutateShouldKeepOriginalAndReturnNewIndividual() {
 		int[] originalGenes = { 0, 1, 2, 3 };
-		IndividualNQueens individual = createIndividual(originalGenes, 0.3, new GeneOperator());
+		IndividualNQueens individual = createIndividual(originalGenes, 0.3, new IntegerGeneOperator());
 
 		int[] beforeMutation = individual.getGenes().clone();
 		com.cefetmg.core.interfaces.Individual<int[]> mutant = individual.mutate();

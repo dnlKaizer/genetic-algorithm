@@ -4,7 +4,7 @@ import com.cefetmg.core.interfaces.IndividualFactory;
 
 public class IndividualNQueensFactory extends IndividualFactory<int[]> {
 
-    private final GeneOperator geneOperator;
+    private final IntegerGeneOperator geneOperator;
 
     private final int numGenes;
     private final double mutationRate;
@@ -19,7 +19,7 @@ public class IndividualNQueensFactory extends IndividualFactory<int[]> {
         this.numGenes = numGenes;
         this.mutationRate = mutationRate;
         
-        this.geneOperator = new GeneOperator();
+        this.geneOperator = new IntegerGeneOperator();
     }
 
     @Override

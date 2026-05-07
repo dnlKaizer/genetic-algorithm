@@ -6,29 +6,26 @@ import com.cefetmg.core.interfaces.Individual;
 
 public class IndividualNQueens extends Individual<int[]> {
 
-    private Integer evaluation = null;
+    private Double evaluation = null;
 
-    private int[] genes;
-    private int numGenes;
+    private final int[] genes;
+    private final int numGenes;
 
-    private final GeneOperator GENE_OPERATOR;
+    private final IntegerGeneOperator GENE_OPERATOR;
     private final double MUTATION_RATE;
     private final int MAX_COLLISIONS;
 
-    protected IndividualNQueens(int numGenes, double mutationRate, GeneOperator geneOperator) {
+    protected IndividualNQueens(int numGenes, double mutationRate, IntegerGeneOperator geneOperator) {
         this.numGenes = numGenes;
-        this.genes = new int[numGenes];
         
         this.GENE_OPERATOR = geneOperator;
         this.MUTATION_RATE = mutationRate;
         this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
-
-        for (int i = 0; i < numGenes; i++) {
-            genes[i] = geneOperator.generateRandomGene(numGenes);
-        }
+        
+        this.genes = GENE_OPERATOR.generateRandomGenes(numGenes);
     }
 
-    private IndividualNQueens(int numGenes, int[] genes, double mutationRate, GeneOperator geneOperator) {
+    private IndividualNQueens(int numGenes, int[] genes, double mutationRate, IntegerGeneOperator geneOperator) {
         this.numGenes = numGenes;
         this.genes = genes;
         
@@ -57,7 +54,7 @@ public class IndividualNQueens extends Individual<int[]> {
     @Override
     public double getFitness() {
         if (evaluation == null) {
-            evaluation = GENE_OPERATOR.countCollisions(this.genes, numGenes);
+            evaluation = GENE_OPERATOR.evaluate(this.genes, numGenes);
         }
         return evaluation;
     }

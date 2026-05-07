@@ -3,24 +3,33 @@ package com.cefetmg.problems.nQueens.model.individuals;
 import java.util.Random;
 
 import com.cefetmg.core.RandomSingleton;
+import com.cefetmg.core.interfaces.GeneOperator;
 
-public class GeneOperator {
+public class IntegerGeneOperator implements GeneOperator<int[]> {
 
     private final Random random;
 
-    public GeneOperator() {
+    public IntegerGeneOperator() {
         this.random = RandomSingleton.getInstance();
     }
 
-    public int generateRandomGene(int numGenes) {
+    public int[] generateRandomGenes(int numGenes) {
+        int[] genes = new int[numGenes];
+        for (int i = 0; i < numGenes; i++) {
+            genes[i] = random.nextInt(numGenes);
+        }
+        return genes;
+    }
+
+    private int generateRandomGene(int numGenes) {
         return random.nextInt(numGenes);
     }
 
-    public int generateCrossoverPoint(int numGenes) {
+    private int generateCrossoverPoint(int numGenes) {
         return random.nextInt(1, numGenes - 1);
     }
 
-    public int mutateGene(int gene, int numGenes, double mutationRate) {
+    private int mutateGene(int gene, int numGenes, double mutationRate) {
         if (random.nextDouble() < mutationRate) {
             return generateRandomGene(numGenes);
         }
@@ -52,7 +61,7 @@ public class GeneOperator {
         return childGenes;
     }
 
-    public int countCollisions(int[] genes, int numGenes) {
+    private int countCollisions(int[] genes, int numGenes) {
         int collisions = 0;
         for (int i = 0; i < numGenes - 1; i++) {
             for (int j = i + 1; j < numGenes; j++) {
@@ -65,6 +74,10 @@ public class GeneOperator {
             }
         }
         return collisions;
+    }
+
+    public double evaluate(int[] genes, int numGenes) {
+        return countCollisions(genes, numGenes);
     }
 
 }
