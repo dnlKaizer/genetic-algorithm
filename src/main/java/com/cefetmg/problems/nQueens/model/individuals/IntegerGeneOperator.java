@@ -57,22 +57,50 @@ public class IntegerGeneOperator implements GeneOperator<int[]> {
                 childGenes[1][i] = parent1Genes[i];
             }
         }
-        
+
         return childGenes;
     }
 
+    // private int countCollisions(int[] genes, int numGenes) {
+    //     int collisions = 0;
+    //     for (int i = 0; i < numGenes - 1; i++) {
+    //         for (int j = i + 1; j < numGenes; j++) {
+    //             boolean sameColumn = genes[i] == genes[j];
+    //             boolean sameDiagonal = Math.abs(genes[i] - genes[j]) == Math.abs(i - j);
+
+    //             if (sameColumn || sameDiagonal) {
+    //                 collisions++;
+    //             }
+    //         }
+    //     }
+    //     return collisions;
+    // }
+
     private int countCollisions(int[] genes, int numGenes) {
         int collisions = 0;
-        for (int i = 0; i < numGenes - 1; i++) {
-            for (int j = i + 1; j < numGenes; j++) {
-                boolean sameColumn = genes[i] == genes[j];
-                boolean sameDiagonal = Math.abs(genes[i] - genes[j]) == Math.abs(i - j);
 
-                if (sameColumn || sameDiagonal) {
-                    collisions++;
-                }
-            }
+        // Arrays para contar quantas rainhas ocupam a mesma linha ou diagonal
+        int[] rowCount = new int[numGenes];
+        int[] diag1Count = new int[2 * numGenes]; // Para (genes[i] - i)
+        int[] diag2Count = new int[2 * numGenes]; // Para (genes[i] + i)
+
+        for (int i = 0; i < numGenes; i++) {
+            int row = genes[i];
+            int d1 = row - i + (numGenes - 1); // Offset para não ter índice negativo
+            int d2 = row + i;
+
+            // Se já existe alguém nessa linha/diagonal, cada rainha anterior
+            // forma uma nova colisão com a rainha atual.
+            collisions += rowCount[row];
+            collisions += diag1Count[d1];
+            collisions += diag2Count[d2];
+
+            // Incrementa os contadores
+            rowCount[row]++;
+            diag1Count[d1]++;
+            diag2Count[d2]++;
         }
+
         return collisions;
     }
 
