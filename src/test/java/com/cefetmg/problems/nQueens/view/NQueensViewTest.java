@@ -3,30 +3,52 @@ package com.cefetmg.problems.nQueens.view;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.Test;
 
 import com.cefetmg.core.interfaces.Individual;
+import com.cefetmg.problems.nQueens.model.NQueensStatistics;
 import com.cefetmg.problems.nQueens.model.individuals.IndividualNQueensFactory;
-import com.cefetmg.problems.nQueens.model.records.NQueensStatistics;
-import com.cefetmg.problems.nQueens.model.records.NQueensVariables;
 
 class NQueensViewTest {
 
     @Test
     void displayShouldFormatCorrectlyAllFields() {
-        NQueensVariables vars = new NQueensVariables(8, 20, 5, 2000);
-        Individual<int[]> mockIndividual = new IndividualNQueensFactory(8).getInstance();
-        NQueensStatistics stats = new NQueensStatistics(mockIndividual, 75, vars);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
 
-        String result = NQueensView.display(stats);
+        try {
+            int numIndividuals = 20;
+            int numEliteIndividuals = 5;
+            int maxGenerations = 100;
+            int numQueens = 8;
+            int generationCount = 67;
+            double mutationRate = 0.3;
 
-        assertNotNull(result);
-        assertTrue(result.contains("Algoritmo Genético - Problema das N Rainhas"));
-        assertTrue(result.contains("Número de Rainhas: 8"));
-        assertTrue(result.contains("Número de Indivíduos: 20"));
-        assertTrue(result.contains("Número de Elites: 5"));
-        assertTrue(result.contains("Máximo de Gerações: 2000"));
-        assertTrue(result.contains("Contagem de Gerações: 75"));
-        assertTrue(result.contains(mockIndividual.toString()));
+            IndividualNQueensFactory factory = new IndividualNQueensFactory(numQueens, mutationRate);
+            Individual<int[]> mockIndividual = factory.getInstance();
+
+            NQueensStatistics stats = new NQueensStatistics(mockIndividual, generationCount, numIndividuals,
+                    numEliteIndividuals, maxGenerations, numQueens, mutationRate);
+
+            NQueensView.display(stats);
+
+            String result = outputStream.toString();
+
+            assertNotNull(result);
+            assertTrue(result.contains("Algoritmo Genético - Problema das N Rainhas"));
+            assertTrue(result.contains("Número de Rainhas: " + numQueens));
+            assertTrue(result.contains("Número de Indivíduos: " + numIndividuals));
+            assertTrue(result.contains("Número de Elites: " + numEliteIndividuals));
+            assertTrue(result.contains("Máximo de Gerações: " + maxGenerations));
+            assertTrue(result.contains("Contagem de Gerações: " + generationCount));
+            assertTrue(result.contains("Taxa de Mutação: " + mutationRate));
+            assertTrue(result.contains(mockIndividual.toString()));
+        } finally {
+            System.setOut(originalOut);
+        }
     }
 }

@@ -1,16 +1,15 @@
 package com.cefetmg.problems.nQueens.model.individuals;
 
-import com.cefetmg.config.variables.VarsIndividualNQueens;
 import com.cefetmg.core.interfaces.IndividualFactory;
 
 public class IndividualNQueensFactory extends IndividualFactory<int[]> {
 
-    private int numGenes;
-    
     private final GeneOperator geneOperator;
+
+    private final int numGenes;
     private final double mutationRate;
 
-    public IndividualNQueensFactory(int numGenes) {
+    public IndividualNQueensFactory(int numGenes, double mutationRate) {
         int minNumGenes = 4;
 
         if (numGenes < minNumGenes) {
@@ -18,9 +17,9 @@ public class IndividualNQueensFactory extends IndividualFactory<int[]> {
         }
 
         this.numGenes = numGenes;
+        this.mutationRate = mutationRate;
         
         this.geneOperator = new GeneOperator();
-        this.mutationRate = VarsIndividualNQueens.getMutationRate();
     }
 
     @Override

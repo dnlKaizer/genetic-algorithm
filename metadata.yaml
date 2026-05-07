@@ -4,11 +4,11 @@ project:
   build_tool: maven
 
 execution_defaults:
-  num_queens: 8
   num_individuals: 100
   max_generations: 10000
 
 individual_n_queens:
+  num_queens: 8
   mutation_rate: 0.3
 
 random:

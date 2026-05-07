@@ -1,19 +1,26 @@
 package com.cefetmg.problems.nQueens.controller;
 
+import com.cefetmg.config.variables.VarsExecutionDefaults;
+import com.cefetmg.config.variables.VarsIndividualNQueens;
+import com.cefetmg.config.variables.VarsExecutionDefaults.InnerVarsExecutionDefaults;
+import com.cefetmg.config.variables.VarsIndividualNQueens.InnerVarsIndividualNQueens;
+
 import com.cefetmg.problems.nQueens.model.NQueensSolver;
 import com.cefetmg.problems.nQueens.view.NQueensView;
 
 public class NQueensController {
-    
+
     public static void execute() {
         while (true) {
-            System.out.print("\nExecutar (qualquer caracter cancela): ");
-            String input = System.console().readLine();
-            if (!input.equalsIgnoreCase("")) {
-                break;
-            }
+            InnerVarsExecutionDefaults defaultVars = VarsExecutionDefaults.getInnerVarsExecutionDefaults();
+            InnerVarsIndividualNQueens nQueensVars = VarsIndividualNQueens.getInnerVarsIndividualNQueens();
 
-            System.out.println(NQueensView.display(NQueensSolver.solve()));
+            if (!NQueensView.shouldContinue())
+                break;
+
+            NQueensView.display(NQueensSolver.solve(nQueensVars.numQueens(),
+                    nQueensVars.mutationRate(), defaultVars.numIndividuals(), defaultVars.numEliteIndividuals(),
+                    defaultVars.maxGenerations()));
         }
     }
 }

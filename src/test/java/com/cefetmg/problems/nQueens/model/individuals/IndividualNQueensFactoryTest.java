@@ -9,12 +9,12 @@ class IndividualNQueensFactoryTest {
 
     @Test
     void constructorShouldThrowWhenNumGenesIsLowerThanFour() {
-        assertThrows(IllegalArgumentException.class, () -> new IndividualNQueensFactory(3));
+        assertThrows(IllegalArgumentException.class, () -> new IndividualNQueensFactory(3, 0.3));
     }
 
     @Test
     void getInstanceShouldCreateIndividualWithExpectedGeneLength() {
-        IndividualNQueensFactory factory = new IndividualNQueensFactory(8);
+        IndividualNQueensFactory factory = new IndividualNQueensFactory(8, 0.3);
 
         IndividualNQueens individual = factory.getInstance();
 

@@ -1,22 +1,27 @@
 package com.cefetmg.problems.nQueens.view;
 
 import com.cefetmg.core.interfaces.Individual;
-import com.cefetmg.problems.nQueens.model.records.NQueensStatistics;
-import com.cefetmg.problems.nQueens.model.records.NQueensVariables;
+import com.cefetmg.problems.nQueens.model.NQueensStatistics;
 
 public class NQueensView {
 
     private NQueensView() {}
 
-    public static String display(NQueensStatistics statistics) {
+    public static boolean shouldContinue() {
+        System.out.print("\nExecutar (qualquer caracter cancela): ");
+        String input = System.console().readLine();
+        return input.equalsIgnoreCase("");
+    }
+
+    public static void display(NQueensStatistics statistics) {
         String br = System.lineSeparator();
         StringBuilder sb = new StringBuilder(br);
 
         addHeader(sb, br);
-        addConfig(sb, br, statistics.variables());
+        addConfig(sb, br, statistics);
         addStatistics(sb, br, statistics.bestIndividual(), statistics.generationCount());
 
-        return sb.toString();
+        System.out.print(sb.toString());
     }
 
     private static void addHeader(StringBuilder sb, String br) {
@@ -25,12 +30,13 @@ public class NQueensView {
         addLine(sb, br);
     }
 
-    private static void addConfig(StringBuilder sb, String br, NQueensVariables vars) {
+    private static void addConfig(StringBuilder sb, String br, NQueensStatistics statistics) {
         sb.append("Configurações de Execução:").append(br);
-        sb.append("\tNúmero de Rainhas: ").append(vars.numQueens()).append(br);
-        sb.append("\tNúmero de Indivíduos: ").append(vars.numIndividuals()).append(br);
-        sb.append("\tNúmero de Elites: ").append(vars.numEliteIndividuals()).append(br);
-        sb.append("\tMáximo de Gerações: ").append(vars.maxGenerations()).append(br);
+        sb.append("\tNúmero de Rainhas: ").append(statistics.numQueens()).append(br);
+        sb.append("\tTaxa de Mutação: ").append(statistics.mutationRate()).append(br);
+        sb.append("\tNúmero de Indivíduos: ").append(statistics.numIndividuals()).append(br);
+        sb.append("\tNúmero de Elites: ").append(statistics.numEliteIndividuals()).append(br);
+        sb.append("\tMáximo de Gerações: ").append(statistics.maxGenerations()).append(br);
     }
 
     private static void addStatistics(StringBuilder sb, String br, Individual<int[]> individual, int generationCount) {
