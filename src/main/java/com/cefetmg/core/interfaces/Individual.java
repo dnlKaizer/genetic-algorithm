@@ -9,7 +9,7 @@ public abstract class Individual<T> implements Comparable<Individual<T>> {
 
     public abstract double getFitness();
 
-    public abstract double getSelectionFitness();
+    // public abstract double getSelectionFitness();
 
     public abstract boolean isOptimal();
 

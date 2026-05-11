@@ -26,7 +26,8 @@ class GeneticAlgorithmTest {
             new DummyFactory(initialPopulation),
             initialPopulation.size(),
             1,
-            0
+            0,
+            false
         );
 
         assertEquals(3.0, best.getFitness());
@@ -46,7 +47,8 @@ class GeneticAlgorithmTest {
             new DummyFactory(initialPopulation),
             initialPopulation.size(),
             1,
-            0
+            0,
+            false
         );
 
         assertSame(bestReference, best);
@@ -90,11 +92,6 @@ class GeneticAlgorithmTest {
         @Override
         public double getFitness() {
             return value;
-        }
-
-        @Override
-        public double getSelectionFitness() {
-            return 1.0 / (1.0 + value);
         }
 
         @Override

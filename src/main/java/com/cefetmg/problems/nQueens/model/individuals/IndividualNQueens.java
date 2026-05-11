@@ -13,14 +13,12 @@ public class IndividualNQueens extends Individual<int[]> {
 
     private final IntegerGeneOperator GENE_OPERATOR;
     private final double MUTATION_RATE;
-    private final int MAX_COLLISIONS;
 
     protected IndividualNQueens(int numGenes, double mutationRate, IntegerGeneOperator geneOperator) {
         this.numGenes = numGenes;
         
         this.GENE_OPERATOR = geneOperator;
         this.MUTATION_RATE = mutationRate;
-        this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
         
         this.genes = GENE_OPERATOR.generateRandomGenes(numGenes);
     }
@@ -29,7 +27,6 @@ public class IndividualNQueens extends Individual<int[]> {
         this.numGenes = numGenes;
         this.genes = genes;
         
-        this.MAX_COLLISIONS = numGenes * (numGenes - 1) / 2;
         this.MUTATION_RATE = mutationRate;
         this.GENE_OPERATOR = geneOperator;
     }
@@ -57,11 +54,6 @@ public class IndividualNQueens extends Individual<int[]> {
             evaluation = GENE_OPERATOR.evaluate(this.genes, numGenes);
         }
         return evaluation;
-    }
-
-    @Override
-    public double getSelectionFitness() {
-        return (MAX_COLLISIONS + 1) - getFitness();
     }
 
     @Override

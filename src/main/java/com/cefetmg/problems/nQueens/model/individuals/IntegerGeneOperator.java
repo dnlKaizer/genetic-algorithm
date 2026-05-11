@@ -16,13 +16,15 @@ public class IntegerGeneOperator implements GeneOperator<int[]> {
     public int[] generateRandomGenes(int numGenes) {
         int[] genes = new int[numGenes];
         for (int i = 0; i < numGenes; i++) {
-            genes[i] = random.nextInt(numGenes);
+            genes[i] = i;
+        }
+        for (int i = numGenes - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            int temp = genes[i];
+            genes[i] = genes[j];
+            genes[j] = temp;
         }
         return genes;
-    }
-
-    private int generateRandomGene(int numGenes) {
-        return random.nextInt(numGenes);
     }
 
     private int generateCrossoverPoint(int numGenes) {
@@ -31,7 +33,7 @@ public class IntegerGeneOperator implements GeneOperator<int[]> {
 
     private int mutateGene(int gene, int numGenes, double mutationRate) {
         if (random.nextDouble() < mutationRate) {
-            return generateRandomGene(numGenes);
+            return random.nextInt(numGenes);
         }
         return gene;
     }

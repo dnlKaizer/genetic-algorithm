@@ -24,7 +24,7 @@ public class GeneticAlgorithm<T> {
         return generationCount;
     }
 
-    public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int maxGenerations) {
+    public Individual<T> execute(IndividualFactory<T> factory, int numIndividuals, int numEliteIndividuals, int maxGenerations, boolean isMaximization) {
         List<Individual<T>> population = factory.getInstances(numIndividuals);
         generationCount = 0;
 
@@ -43,12 +43,12 @@ public class GeneticAlgorithm<T> {
 
             population.clear();
             population.addAll(applyElitism(allIndividuals, numEliteIndividuals));
-            population.addAll(applyRouletteWheelSelection(allIndividuals, numIndividuals - numEliteIndividuals));
+            population.addAll(applyRouletteWheelSelection(allIndividuals, numIndividuals - numEliteIndividuals, isMaximization));
         }
 
         Collections.sort(population);
 
-        return population.get(0);
+        return isMaximization ? population.get(population.size() - 1) : population.get(0);
     }
 
     private List<Individual<T>> applyMutation(List<Individual<T>> population) {
@@ -82,16 +82,31 @@ public class GeneticAlgorithm<T> {
         return populationSorted.subList(0, numEliteIndividuals);
     }
 
-    private List<Individual<T>> applyRouletteWheelSelection(List<Individual<T>> population, int numSelected) {
+    private List<Individual<T>> applyRouletteWheelSelection(List<Individual<T>> population, int numSelected, boolean isMaximization) {
+        double worstFitness = population.stream()
+                .mapToDouble(Individual::getFitness)
+                .reduce(isMaximization ? Double.MAX_VALUE : Double.MIN_VALUE,
+                        isMaximization ? Math::min : Math::max);
+
         double[] cumulativeScores = new double[population.size()];
         double sum = 0;
 
         for (int i = 0; i < population.size(); i++) {
-            sum += population.get(i).getSelectionFitness();
+            double weight = isMaximization
+                    ? population.get(i).getFitness() - worstFitness
+                    : worstFitness - population.get(i).getFitness();
+            sum += weight;
             cumulativeScores[i] = sum;
         }
 
         List<Individual<T>> selected = new ArrayList<>(numSelected);
+
+        if (sum == 0) {
+            for (int i = 0; i < numSelected; i++) {
+                selected.add(population.get(random.nextInt(population.size())));
+            }
+            return selected;
+        }
 
         for (int i = 0; i < numSelected; i++) {
             double target = random.nextDouble() * sum;
