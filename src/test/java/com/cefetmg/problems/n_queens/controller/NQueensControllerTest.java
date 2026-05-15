@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens.controller;
+package com.cefetmg.problems.n_queens.controller;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

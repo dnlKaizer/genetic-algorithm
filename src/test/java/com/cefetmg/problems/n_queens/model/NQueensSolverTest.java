@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens.model;
+package com.cefetmg.problems.n_queens.model;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;

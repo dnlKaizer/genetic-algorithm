@@ -1,12 +1,11 @@
-package com.cefetmg.problems.nQueens.controller;
+package com.cefetmg.problems.n_queens.controller;
 
 import com.cefetmg.config.variables.VarsExecutionDefaults;
 import com.cefetmg.config.variables.VarsIndividualNQueens;
 import com.cefetmg.config.variables.VarsExecutionDefaults.InnerVarsExecutionDefaults;
 import com.cefetmg.config.variables.VarsIndividualNQueens.InnerVarsIndividualNQueens;
-
-import com.cefetmg.problems.nQueens.model.NQueensSolver;
-import com.cefetmg.problems.nQueens.view.NQueensView;
+import com.cefetmg.problems.n_queens.model.NQueensSolver;
+import com.cefetmg.problems.n_queens.view.NQueensView;
 
 public class NQueensController {
 

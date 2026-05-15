@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens.model;
+package com.cefetmg.problems.n_queens.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.Test;
 
 import com.cefetmg.core.interfaces.Individual;
-import com.cefetmg.problems.nQueens.model.individuals.IndividualNQueensFactory;
+import com.cefetmg.problems.n_queens.model.individuals.IndividualNQueensFactory;
 
 class NQueensStatisticsTest {
 

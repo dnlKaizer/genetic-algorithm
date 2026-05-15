@@ -1,4 +1,4 @@
-package com.cefetmg.problems.nQueens.view;
+package com.cefetmg.problems.n_queens.view;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,8 +9,8 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 
 import com.cefetmg.core.interfaces.Individual;
-import com.cefetmg.problems.nQueens.model.NQueensStatistics;
-import com.cefetmg.problems.nQueens.model.individuals.IndividualNQueensFactory;
+import com.cefetmg.problems.n_queens.model.NQueensStatistics;
+import com.cefetmg.problems.n_queens.model.individuals.IndividualNQueensFactory;
 
 class NQueensViewTest {
 

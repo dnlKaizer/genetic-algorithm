@@ -1,9 +1,8 @@
-package com.cefetmg.problems.nQueens.model;
+package com.cefetmg.problems.n_queens.model;
 
 import com.cefetmg.core.GeneticAlgorithm;
 import com.cefetmg.core.interfaces.Individual;
-
-import com.cefetmg.problems.nQueens.model.individuals.IndividualNQueensFactory;
+import com.cefetmg.problems.n_queens.model.individuals.IndividualNQueensFactory;
 
 public class NQueensSolver {
 

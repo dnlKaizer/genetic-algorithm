@@ -1,7 +1,7 @@
-package com.cefetmg.problems.nQueens.view;
+package com.cefetmg.problems.n_queens.view;
 
 import com.cefetmg.core.interfaces.Individual;
-import com.cefetmg.problems.nQueens.model.NQueensStatistics;
+import com.cefetmg.problems.n_queens.model.NQueensStatistics;
 
 public class NQueensView {
 
