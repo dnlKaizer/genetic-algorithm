@@ -1,9 +1,9 @@
 package com.cefetmg;
 
-import com.cefetmg.problems.n_queens.controller.NQueensController;
+import com.cefetmg.problems.math_functions.controller.MathFunctionController;
 
 public class App {
     public static void main(String[] args) {
-        NQueensController.execute();
+        MathFunctionController.execute();
     }
 }
