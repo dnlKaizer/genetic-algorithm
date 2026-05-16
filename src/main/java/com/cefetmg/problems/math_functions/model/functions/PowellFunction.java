@@ -62,5 +62,10 @@ public class PowellFunction implements MathFunction {
     public int getNumDimensions() {
         return d;
     }
+
+    @Override
+    public String getName() {
+        return "Powell";
+    }
     
 }

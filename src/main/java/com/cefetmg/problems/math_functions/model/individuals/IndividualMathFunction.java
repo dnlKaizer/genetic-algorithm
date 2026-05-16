@@ -60,9 +60,9 @@ public class IndividualMathFunction extends Individual<double[]> {
     public String toString() {
         StringBuilder sb = new StringBuilder("Indivíduo: { ");
         for (double gene : genes) {
-            sb.append(gene).append(" ");
+            sb.append(String.format("%.6f", gene)).append(" ");
         }
-        sb.append("}, Avaliação: ").append(getFitness());
+        sb.append("}, Avaliação: ").append(String.format("%.6f", getFitness()));
         return sb.toString();
     }
     

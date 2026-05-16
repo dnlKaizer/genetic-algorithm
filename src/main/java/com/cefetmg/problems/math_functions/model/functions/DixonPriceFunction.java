@@ -53,4 +53,9 @@ public class DixonPriceFunction implements MathFunction {
         return d;
     }
 
+    @Override
+    public String getName() {
+        return "Dixon-Price";
+    }
+
 }

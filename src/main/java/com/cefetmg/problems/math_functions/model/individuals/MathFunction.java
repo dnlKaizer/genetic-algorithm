@@ -9,4 +9,6 @@ public interface MathFunction {
     double getMaxDomain();
 
     int getNumDimensions();
+
+    String getName();
 }

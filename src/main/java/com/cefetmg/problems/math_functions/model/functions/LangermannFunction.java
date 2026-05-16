@@ -66,6 +66,11 @@ public class LangermannFunction implements MathFunction {
         return d;
     }
 
+    @Override
+    public String getName() {
+        return "Langermann";
+    }
+
     private void validate(double[] c, double[][] a) {
         Objects.requireNonNull(c, "O vetor c não pode ser nulo.");
         Objects.requireNonNull(a, "A matriz A não pode ser nula.");
