@@ -4,12 +4,47 @@ project:
   build_tool: maven
 
 execution_defaults:
-  num_queens: 8
   num_individuals: 100
   max_generations: 10000
 
 individual_n_queens:
+  num_queens: 8
   mutation_rate: 0.3
+
+individual_math_function:
+  mutation_rate: 0.1
+  alpha: 0.3
+
+  # Funções de benchmark a serem testadas
+  langermann: true
+  dixon-price: true
+  powell: true
+
+langermann_function:
+  # blx_alpha | arithmetic | null (Executa os dois tipos de crossover)
+  crossover_type: null
+
+  c: [1, 2, 5, 2, 3]
+  A: [
+    [ 3, 5 ],
+    [ 5, 2 ],
+    [ 2, 1 ],
+    [ 1, 4 ],
+    [ 7, 9 ]
+  ]
+
+dixon_price_function:
+  # blx_alpha | arithmetic | null (Executa os dois tipos de crossover)
+  crossover_type: null
+
+  dimensions: 4
+
+powell_function:
+  # blx_alpha | arithmetic | null (Executa os dois tipos de crossover)
+  crossover_type: null
+
+  # Deve ser divisível por 4
+  dimensions: 4
 
 random:
   seed: 123456789
